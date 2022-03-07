@@ -9,11 +9,15 @@ print("""
 #Extensions
 load('ext://helm_resource', 'helm_resource')
 
+# Settings
+update_settings ( max_parallel_updates = 1 , k8s_upsert_timeout_secs = 120 , suppress_unused_image_warnings = None )
+
 #Global
 nspath = "./namespaces"
 
 # Configuration Scripts
 local_resource('setup-github', cmd='./scripts/setup-github.sh')
+local_resource('setup-argo', cmd='./scripts/setup-argo.sh', resource_deps=['setup-github'])
 local_resource('setup-key', cmd='./scripts/setup-key.sh')
 
 #SOPS
@@ -31,15 +35,15 @@ helm_resource(
 
 # #Argo
 # #Namespace
-# k8s_yaml("{}/{}.yaml".format(nspath, "argo"))
+k8s_yaml("{}/{}.yaml".format(nspath, "argo"))
 
 # #Charts
-# helm_resource(
-#   name="argo-cd",
-#   namespace='argo',
-#   chart="./charts/argo-cd",
-#   resource_deps=['sops-operator', 'setup-github']
-# )
+helm_resource(
+  name="argo-cd",
+  namespace='argo',
+  chart="./charts/argo-cd",
+  resource_deps=['sops-operator', 'setup-github']
+)
 
 # helm_resource(
 #   name="argo-applicationset",
