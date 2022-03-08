@@ -33,8 +33,8 @@ helm_resource(
 )
 
 
-# #Argo
-# #Namespace
+# Argo
+# Namespace
 k8s_yaml("{}/{}.yaml".format(nspath, "argo"))
 
 # #Charts
@@ -42,7 +42,8 @@ helm_resource(
   name="argo-cd",
   namespace='argo',
   chart="./charts/argo-cd",
-  resource_deps=['sops-operator', 'setup-github']
+  resource_deps=['sops-operator', 'setup-github'],
+  port_forwards=["8080"]
 )
 
 # helm_resource(
@@ -52,7 +53,35 @@ helm_resource(
 #   resource_deps=['sops-operator', 'argo-cd', 'setup-github' ]
 # )
 
-#Purl Microservice
-#Namespaces
+# Microservice
+# Namespaces
 k8s_yaml("{}/{}.yaml".format(nspath, "production"))
 k8s_yaml("{}/{}.yaml".format(nspath, "staging"))
+k8s_yaml("{}/{}.yaml".format(nspath, "dev"))
+
+#Dev Deployment
+
+docker_build('greeter',
+            context='.',
+            dockerfile='./app/docker/Dockerfile',
+            entrypoint='/main',
+            only=[
+                './app/cmd/main.go',
+                './app/go.mod',
+                './app/go.sum'
+            ],
+             live_update=[
+                sync('./app/go.mod', '/service/go.mod'),
+                sync('./app/go.sum', '/service/go.sum'),
+                sync('./app/cmd', '/service/cmd'),
+             ]
+)
+
+helm_resource(
+  name="greeter",
+  namespace='dev',
+  chart="./app/chart",
+  image_deps= ["greeter"],
+  image_keys= [('deployment.image', 'deployment.tag')],
+  port_forwards=["5555"]
+)

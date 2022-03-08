@@ -1,0 +1,12 @@
+
+
+chartName: greeting-app
+
+deployment: 
+  replicaCount: 1
+  image: greeter
+  tag: latest
+
+config:
+  port: 8000 #should be the same as deployment port
+  greeting: Hello
