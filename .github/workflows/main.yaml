@@ -20,6 +20,7 @@ jobs:
           registry: ghcr.io
           username: rallinator7
           password: ${{ secrets.GITHUB_TOKEN }}
+      - run: cd app
       - name: Run Mage
         uses: magefile/mage-action@v1
         with:
