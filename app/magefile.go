@@ -40,7 +40,7 @@ type DockerImage struct {
 	Tag          string
 }
 
-// builds the akita-poker server image
+// builds the greeter server image
 func Build() error {
 	// get current dir mage is running in
 	dir := baseDir
@@ -67,7 +67,7 @@ func Build() error {
 }
 
 // pushes images to GitHub
-func PushImages() error {
+func Push() error {
 	images := []string{"greeter-app"}
 	commit := gitCommit()
 	for _, image := range images {
@@ -79,6 +79,21 @@ func PushImages() error {
 		if err != nil {
 			return fmt.Errorf("could not push docker image: %s", err)
 		}
+	}
+
+	return nil
+}
+
+// ci run for GitHub Actions
+func CI() error {
+	err := Build()
+	if err != nil {
+		return fmt.Errorf("could not build server: %s", err)
+	}
+
+	err = Push()
+	if err != nil {
+		return fmt.Errorf("could not push images: %s", err)
 	}
 
 	return nil
