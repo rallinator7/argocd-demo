@@ -9,4 +9,7 @@ deployment:
 
 config:
   port: 8000 #should be the same as deployment port
-  greeting: Hello
+  greeting: Bonjour
+
+ingress:
+  rule: PathPrefix(`/prod`)

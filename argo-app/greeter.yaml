@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: greeter
+  namespace: argo
+spec:
+  generators:
+  - list:
+      elements:
+      - environment: staging
+      - environment: production
+  template:
+    metadata:
+      name: '{{environment}}-greeter'
+    spec:
+      project: default
+      source:
+        repoURL: git@github.com:rallinator7/argocd-demo.git
+        targetRevision: HEAD
+        path: manifests/{{environment}}/greeter
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{environment}}'
