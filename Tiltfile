@@ -46,12 +46,12 @@ helm_resource(
   port_forwards=["8080"]
 )
 
-# helm_resource(
-#   name="argo-applicationset",
-#   namespace='argo',
-#   chart="./charts/argo-applicationset",
-#   resource_deps=['sops-operator', 'argo-cd', 'setup-github' ]
-# )
+helm_resource(
+  name="argo-applicationset",
+  namespace='argo',
+  chart="./charts/argocd-applicationset",
+  resource_deps=['sops-operator', 'argo-cd', 'setup-github' ]
+)
 
 # Microservice
 # Namespaces
