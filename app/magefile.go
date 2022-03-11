@@ -56,11 +56,6 @@ func Build() error {
 		if err != nil {
 			return fmt.Errorf("could not build docker image: %s", err)
 		}
-
-		err = sh.Run("rm", "akita-poker-server")
-		if err != nil {
-			return fmt.Errorf("could not remove binary: %s", err)
-		}
 	}
 
 	return nil
