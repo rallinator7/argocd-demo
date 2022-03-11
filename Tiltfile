@@ -60,7 +60,6 @@ k8s_yaml("{}/{}.yaml".format(nspath, "staging"))
 k8s_yaml("{}/{}.yaml".format(nspath, "dev"))
 
 #Dev Deployment
-
 docker_build('greeter',
             context='.',
             dockerfile='./app/docker/Dockerfile',
