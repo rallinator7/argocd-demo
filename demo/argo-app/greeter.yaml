@@ -19,9 +19,9 @@ spec:
           allowEmpoty: true
           prune: true
       source:
-        repoURL: git@github.com:rallinator7/argocd-demo.git
+        repoURL: git@github.com:rallinator7/argocd-demo-manifests.git
         targetRevision: HEAD
-        path: manifests/{{environment}}/greeter
+        path: "{{environment}}/greeting-app"
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{environment}}'
