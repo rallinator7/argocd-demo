@@ -1,6 +1,6 @@
-SECRETS_DIR="./secrets"
+SECRETS_DIR="./demo/secrets"
 CONFIG_FILE="$SECRETS_DIR/config.yaml"
-ARGO_DIR="./charts/argo-cd"
+ARGO_DIR="./demo/charts/argo-cd"
 ARGO_VALUE_FILE="$ARGO_DIR/values.yaml"
 CRED_TEMP_FILE="$ARGO_DIR/templates/argocd-configs/repo-creds.yaml"
 CRED_FILE="$ARGO_DIR/templates/argocd-configs/repo-creds.enc.yaml"
@@ -12,7 +12,7 @@ BCRYPT_PWD=$(htpasswd -nbBC 10 "" $ARGO_PWD | tr -d ':\n' | sed 's/$2y/$2a/')
 SOPS_PUBLIC_KEY=$(yq e '.sops.publicKey' $CONFIG_FILE)
 
 # File name should match temp file variable
-cat <<EOF > ./charts/argo-cd/templates/argocd-configs/repo-creds.yaml
+cat <<EOF > ./demo/charts/argo-cd/templates/argocd-configs/repo-creds.yaml
 apiVersion: isindir.github.com/v1alpha3
 kind: SopsSecret
 metadata:

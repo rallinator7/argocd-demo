@@ -13,8 +13,10 @@ load('ext://helm_resource', 'helm_resource')
 update_settings ( max_parallel_updates = 1 , k8s_upsert_timeout_secs = 120 , suppress_unused_image_warnings = None )
 
 #Global
-nspath = "./namespaces"
-argo_app_path= "./argo-app"
+nspath = "./demo/namespaces"
+argo_app_path= "./demo/argo-app"
+demo_deps_path="./demo/charts"
+chart_path="./"
 
 # Configuration Scripts
 local_resource('setup-github', cmd='./scripts/setup-github.sh')
@@ -29,7 +31,7 @@ k8s_yaml("{}/{}.yaml".format(nspath, "sops"))
 helm_resource(
   name="sops-operator",
   namespace='sops',
-  chart="./charts/sops-operator",
+  chart="{}/{}".format(demo_deps_path, "sops-operator"),
   resource_deps=['setup-key']
 )
 
@@ -42,7 +44,7 @@ k8s_yaml("{}/{}.yaml".format(nspath, "argo"))
 helm_resource(
   name="argo-cd",
   namespace='argo',
-  chart="./charts/argo-cd",
+  chart="{}/{}".format(demo_deps_path, "argo-cd"),
   resource_deps=['sops-operator', 'setup-github'],
   port_forwards=["8080"]
 )
@@ -50,7 +52,7 @@ helm_resource(
 helm_resource(
   name="argo-applicationset",
   namespace='argo',
-  chart="./charts/argocd-applicationset",
+  chart="{}/{}".format(demo_deps_path, "argocd-applicationset"),
   resource_deps=['sops-operator', 'argo-cd', 'setup-github' ]
 )
 
@@ -87,7 +89,7 @@ docker_build('greeter',
 helm_resource(
   name="greeter",
   namespace='dev',
-  chart="./app/chart",
+  chart="./chart",
   image_deps= ["greeter"],
   image_keys= [('deployment.image', 'deployment.tag')],
   port_forwards=["5555"]

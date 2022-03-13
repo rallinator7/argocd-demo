@@ -1,4 +1,5 @@
-SECRETS_DIR="./secrets"
+SECRETS_DIR="./demo/secrets"
+GITHUB_REPO="./demo/github"
 KEY_NAME="key-pair"
 CONFIG_FILE="$SECRETS_DIR/config.yaml"
 EMAIL=$(yq e '.github.email' "$CONFIG_FILE")
@@ -12,6 +13,6 @@ PRIVATE_KEY=$(cat "$SECRETS_DIR/$KEY_NAME" | base64)
 key=$PUBLIC_KEY yq e ".argo.publicKey = env(key)" -i "$CONFIG_FILE"
 key="$PRIVATE_KEY" yq e ".argo.privateKey = env(key)" -i "$CONFIG_FILE"
 
-cd github
+cd $GITHUB_REPO
 terraform init
 terraform apply -auto-approve
