@@ -4,7 +4,7 @@ chartName: greeting-app
 
 deployment: 
   replicaCount: 1
-  image: greeter
+  image: ghcr.io/rallinator7/greeter-app
   tag: latest
 
 config:
@@ -12,4 +12,4 @@ config:
   greeting: Hello
 
 ingress:
-  rule: PathPrefix(`/dev`)
+  rule: PathPrefix(`/`)
