@@ -38,7 +38,7 @@ func (g *Greeter) GreetingHandler(w http.ResponseWriter, request *http.Request) 
 	name := params.Get("name")
 
 	resp := GreetingResponse{
-		Message: fmt.Sprintf("%s %s! Hope you have a nice night!", g.greeting, name),
+		Message: fmt.Sprintf("%s %s! Have a nice night!", g.greeting, name),
 	}
 
 	w.Header().Set("Content-Type", "application/json")
