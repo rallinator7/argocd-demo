@@ -5,7 +5,7 @@ chartName: greeting-app
 deployment: 
   replicaCount: 1
   image: ghcr.io/rallinator7/greeter-app
-  tag: a062ce6
+  tag: 37c9543
 
 config:
   port: 8000 #should be the same as deployment port

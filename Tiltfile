@@ -14,6 +14,7 @@ update_settings ( max_parallel_updates = 1 , k8s_upsert_timeout_secs = 120 , sup
 
 #Global
 nspath = "./namespaces"
+argo_app_path= "./argo-app"
 
 # Configuration Scripts
 local_resource('setup-github', cmd='./scripts/setup-github.sh')
@@ -51,6 +52,13 @@ helm_resource(
   namespace='argo',
   chart="./charts/argocd-applicationset",
   resource_deps=['sops-operator', 'argo-cd', 'setup-github' ]
+)
+
+k8s_yaml("{}/{}.yaml".format(argo_app_path, "greeter"))
+k8s_resource(
+  objects=['greeter:applicationset'],
+  resource_deps=['argo-applicationset'],
+  new_name="greeter-application-set"
 )
 
 # Microservice
