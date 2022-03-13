@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   greeting-app:
   - apiVersion: v2
+    appVersion: 0.2.0
+    created: "2022-03-13T19:58:27.668384952Z"
+    description: A simple greeter app for demoing
+    digest: 0f675a3a71dccc14623cdab0f377100c683e8e6aebb556a45dfead8f7db056e0
+    name: greeting-app
+    type: application
+    urls:
+    - https://github.com/rallinator7/argocd-demo/releases/download/greeting-app-0.2.0/greeting-app-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     appVersion: 1.16.0
     created: "2022-03-13T19:49:28.701343624Z"
     description: A Helm chart for Kubernetes
@@ -11,4 +21,4 @@ entries:
     urls:
     - https://github.com/rallinator7/argocd-demo/releases/download/greeting-app-0.1.0/greeting-app-0.1.0.tgz
     version: 0.1.0
-generated: "2022-03-13T19:49:28.701348072Z"
+generated: "2022-03-13T19:58:27.668395242Z"
