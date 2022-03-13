@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   greeting-app:
   - apiVersion: v2
+    appVersion: 0.3.1
+    created: "2022-03-13T20:54:19.184261094Z"
+    description: A simple greeter app for demoing
+    digest: 2df03fc1e5cf6af492e7308bf971d2cd698c488ab869cddd0b24c45dd22ce17b
+    name: greeting-app
+    type: application
+    urls:
+    - https://github.com/rallinator7/argocd-demo/releases/download/greeting-app-0.3.1/greeting-app-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
     appVersion: 0.2.0
     created: "2022-03-13T19:58:27.668384952Z"
     description: A simple greeter app for demoing
@@ -21,4 +31,4 @@ entries:
     urls:
     - https://github.com/rallinator7/argocd-demo/releases/download/greeting-app-0.1.0/greeting-app-0.1.0.tgz
     version: 0.1.0
-generated: "2022-03-13T19:58:27.668395242Z"
+generated: "2022-03-13T20:54:19.184275294Z"
