@@ -28,7 +28,7 @@ There are several scripts in the repo that will require inputs from you, the end
       token: # your github token
     argo:
       baseRepo: # Base of the repo you want to deploy. ex) if your app is in an org, use the ssh string for the repo all the way up until you hit the repo name
-      fullRepo: # Repo that the demo app is in
+      manifestRepo: # Repo that the manifests are in
       adminPassword: # The Password for the Argo UI
       publicKey: # Leave Blank
       privateKey: # Leave Blank
@@ -47,3 +47,7 @@ The Sops configuration is completely automated, so you will not have to worry ab
 ### SSH Key Pair
 
 Like the Sops setup, you won't have to do any manual configuration for the key pair to access your github repositories.  We create a key pair and use Terraform to assign the public key to your github account.  The private key is then encrypted with sops and deployed into Kuberentes to be decrypted and used by Argo to access your repos.
+
+## Deployment
+
+To deploy the demo, you should be able to run `tilt up` to start the application stack.  Once all of the deployments are green in the tilt UI, you should be able to visit the [ArgoCD](localhost:8080) UI.  The UI is being port-forwarded over http, so you will need to proceed through the warning you browser shows.  Once at the login screen, you can enter the password you set in the config file and see your applications!
